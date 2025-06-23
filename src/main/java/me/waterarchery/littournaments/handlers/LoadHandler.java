@@ -1,5 +1,6 @@
 package me.waterarchery.littournaments.handlers;
 
+import lombok.Getter;
 import me.waterarchery.litlibs.LitLibs;
 import me.waterarchery.litlibs.logger.Logger;
 import me.waterarchery.litlibs.version.Version;
@@ -26,6 +27,7 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+@Getter
 public class LoadHandler {
 
     private PlaceholderAPIHook placeholderAPIHook;
@@ -95,7 +97,7 @@ public class LoadHandler {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             TournamentPlayer tournamentPlayer = new TournamentPlayer(player.getUniqueId());
-            playerHandler.addPlayer(tournamentPlayer);
+            playerHandler.getPlayers().add(tournamentPlayer);
             playerHandler.initializePlayer(tournamentPlayer, false);
         }
     }
@@ -231,10 +233,6 @@ public class LoadHandler {
                 throw new RuntimeException(ex);
             }
         }
-    }
-
-    public PlaceholderAPIHook getPlaceholderAPIHook() {
-        return placeholderAPIHook;
     }
 
 }

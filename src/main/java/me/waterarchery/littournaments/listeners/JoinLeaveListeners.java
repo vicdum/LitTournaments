@@ -16,7 +16,7 @@ public class JoinLeaveListeners implements Listener {
         Player player = event.getPlayer();
 
         TournamentPlayer tournamentPlayer = new TournamentPlayer(player.getUniqueId());
-        playerHandler.addPlayer(tournamentPlayer);
+        playerHandler.getPlayers().add(tournamentPlayer);
         playerHandler.initializePlayer(tournamentPlayer, true);
     }
 
@@ -25,8 +25,7 @@ public class JoinLeaveListeners implements Listener {
         PlayerHandler playerHandler = PlayerHandler.getInstance();
         Player player = event.getPlayer();
 
-        TournamentPlayer tournamentPlayer = playerHandler.getPlayer(player.getUniqueId());
-        playerHandler.removePlayer(tournamentPlayer);
+        playerHandler.getPlayers().removeIf(tPlayer -> tPlayer.getUUID().equals(player.getUniqueId()));
     }
 
 }

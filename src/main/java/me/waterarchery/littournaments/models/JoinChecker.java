@@ -1,11 +1,13 @@
 package me.waterarchery.littournaments.models;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+@Getter
 public class JoinChecker {
 
     private final Tournament tournament;
@@ -23,28 +25,12 @@ public class JoinChecker {
     }
 
     public boolean canJoin(UUID uuid) {
-        if (isJoinRequirePermission()) {
+        if (autoJoinRequirePermission) {
             Player player = Bukkit.getPlayer(uuid);
             return player != null && player.hasPermission("littournaments.join." + tournament.getIdentifier());
         }
 
         return true;
-    }
-
-    public boolean isAutoJoinEnabled() {
-        return autoJoinEnabled;
-    }
-
-    public boolean isAutoJoinRequirePermission() {
-        return autoJoinRequirePermission;
-    }
-
-    public boolean isJoinRequirePermission() {
-        return joinRequirePermission;
-    }
-
-    public boolean isMessageOnAutoJoin() {
-        return messageOnAutoJoin;
     }
 
 }

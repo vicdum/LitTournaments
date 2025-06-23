@@ -6,7 +6,7 @@
 
     <groupId>me.waterarchery</groupId>
     <artifactId>LitTournaments</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
     <packaging>jar</packaging>
 
     <name>LitTournaments</name>
@@ -262,7 +262,7 @@
         <dependency>
             <groupId>com.github.WaterArchery</groupId>
             <artifactId>LitLibs</artifactId>
-            <version>1.1.27</version>
+            <version>1.1.32</version>
             <scope>provided</scope>
         </dependency>
 
@@ -295,6 +295,12 @@
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
             <version>6.0.54</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

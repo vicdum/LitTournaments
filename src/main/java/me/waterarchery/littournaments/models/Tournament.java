@@ -1,6 +1,7 @@
 package me.waterarchery.littournaments.models;
 
 
+import lombok.Getter;
 import me.waterarchery.littournaments.LitTournaments;
 import me.waterarchery.littournaments.api.events.TournamentEndEvent;
 import me.waterarchery.littournaments.api.events.TournamentStartEvent;
@@ -19,6 +20,7 @@ import java.time.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
+@Getter
 public class Tournament {
 
     private final String identifier;
@@ -181,21 +183,5 @@ public class Tournament {
             LitTournaments.getInstance().getLogger().log(Level.WARNING, "Error saving tournament file: " + this.identifier, e);
         }
     }
-
-    public String getCoolName() { return coolName; }
-
-    public String getIdentifier() { return identifier; }
-
-    public YamlConfiguration getYamlConfiguration() { return yamlConfiguration; }
-
-    public JoinChecker getJoinChecker() { return joinChecker; }
-
-    public ActionChecker getActionChecker() { return actionChecker; }
-
-    public TournamentLeaderboard getLeaderboard() { return leaderboard; }
-
-    public boolean isActive() { return isActive; }
-
-    public String getTimePeriod() { return timePeriod; }
 
 }

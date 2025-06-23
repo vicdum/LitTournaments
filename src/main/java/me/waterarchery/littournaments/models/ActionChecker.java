@@ -1,9 +1,11 @@
 package me.waterarchery.littournaments.models;
 
+import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.List;
 
+@Getter
 public class ActionChecker {
 
     private final Tournament tournament;
@@ -18,22 +20,6 @@ public class ActionChecker {
         actionBlacklist = yaml.getStringList("Checkers.Action.Blacklist");
         worldWhitelist = yaml.getStringList("Checkers.World.Whitelist");
         worldBlacklist = yaml.getStringList("Checkers.World.Blacklist");
-    }
-
-    public List<String> getActionWhitelist() {
-        return actionWhitelist;
-    }
-
-    public List<String> getActionBlacklist() {
-        return actionBlacklist;
-    }
-
-    public List<String> getWorldWhitelist() {
-        return worldWhitelist;
-    }
-
-    public List<String> getWorldBlacklist() {
-        return worldBlacklist;
     }
 
 }

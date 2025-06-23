@@ -1,5 +1,6 @@
 package me.waterarchery.littournaments.handlers;
 
+import lombok.Getter;
 import me.waterarchery.litlibs.LitLibs;
 import me.waterarchery.litlibs.configuration.ConfigManager;
 import me.waterarchery.littournaments.LitTournaments;
@@ -12,9 +13,13 @@ import java.io.File;
 
 public class FileHandler {
 
+    @Getter
     private static ConfigManager config;
+    @Getter
     private static ConfigManager lang;
+    @Getter
     private static ConfigManager tournamentMenu;
+    @Getter
     private static ConfigManager leaderboardMenu;
 
     public static void load() {
@@ -36,18 +41,6 @@ public class FileHandler {
         leaderboardMenu = new LeaderboardMenuFile(libs, "menu", "leaderboard", true);
         generateTournamentFiles();
     }
-
-    public static ConfigManager getConfig() {
-        return config;
-    }
-
-    public static ConfigManager getLang() {
-        return lang;
-    }
-
-    public static ConfigManager getTournamentMenu() { return tournamentMenu; }
-
-    public static ConfigManager getLeaderboardMenu() { return leaderboardMenu; }
 
     public static void generateTournamentFiles() {
         LitTournaments instance = LitTournaments.getInstance();

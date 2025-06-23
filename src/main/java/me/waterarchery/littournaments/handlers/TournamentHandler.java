@@ -1,5 +1,6 @@
 package me.waterarchery.littournaments.handlers;
 
+import lombok.Getter;
 import me.waterarchery.litlibs.LitLibs;
 import me.waterarchery.litlibs.logger.Logger;
 import me.waterarchery.litlibs.utils.ChatUtils;
@@ -13,7 +14,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+@Getter
 public class TournamentHandler {
 
     private final List<Tournament> tournaments = new ArrayList<>();
@@ -86,7 +87,7 @@ public class TournamentHandler {
 
             Tournament tournament = tournamentClass.getDeclaredConstructor(argTypes).newInstance(args);
             logger.log(String.format("Tournament loaded: %s", tournament.getIdentifier()));
-            addTournament(tournament);
+            tournaments.add(tournament);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
@@ -108,10 +109,6 @@ public class TournamentHandler {
         }
 
         return null;
-    }
-
-    public List<Tournament> getTournaments() {
-        return tournaments;
     }
 
     public void parseRewards(Tournament tournament) {
@@ -184,21 +181,9 @@ public class TournamentHandler {
             if (targetPlayer != null) command = command.replace("%player%", targetPlayer);
 
             String finalCommand = command;
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
-                }
-            }.runTask(LitTournaments.getInstance());
+            Bukkit.getScheduler().runTask(LitTournaments.getInstance(),
+                    () -> Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), finalCommand));
         }
-    }
-
-    public void addTournament(Tournament tournament) {
-        tournaments.add(tournament);
-    }
-
-    public void removeTournament(Tournament tournament) {
-        tournaments.add(tournament);
     }
 
 }

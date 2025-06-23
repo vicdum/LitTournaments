@@ -1,13 +1,15 @@
 package me.waterarchery.littournaments.models;
 
+import lombok.Getter;
 import me.waterarchery.littournaments.LitTournaments;
 import me.waterarchery.littournaments.database.Database;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.Optional;
 
+@Getter
 public class TournamentLeaderboard {
 
     private final Tournament tournament;
@@ -22,7 +24,7 @@ public class TournamentLeaderboard {
     public int getPlayerPos(TournamentPlayer tournamentPlayer) {
         for (int pos : leaderboard.keySet()) {
             TournamentValue value = leaderboard.get(pos);
-            if (value.getUUID().equals(tournamentPlayer.getUUID())) return pos;
+            if (value.getUuid().equals(tournamentPlayer.getUUID())) return pos;
         }
 
         return 0;
@@ -38,13 +40,10 @@ public class TournamentLeaderboard {
         LitTournaments instance = LitTournaments.getInstance();
         long taskInterval = instance.getConfig().getLong("LeaderboardRefresh") * 20L;
 
-        refreshTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                Database database = LitTournaments.getDatabase();
-                database.reloadLeaderboard(tournament);
-            }
-        }.runTaskTimerAsynchronously(LitTournaments.getInstance(), taskInterval, taskInterval);
+        refreshTask = Bukkit.getScheduler().runTaskTimerAsynchronously(LitTournaments.getInstance(), () -> {
+            Database database = LitTournaments.getDatabase();
+            database.reloadLeaderboard(tournament);
+        }, taskInterval, taskInterval);
     }
 
     public void setPosition(TournamentValue value, int position) {
@@ -54,10 +53,6 @@ public class TournamentLeaderboard {
 
     public void clear() {
         leaderboard.clear();
-    }
-
-    public HashMap<Integer, TournamentValue> getLeaderboard() {
-        return leaderboard;
     }
 
 }

@@ -75,8 +75,8 @@ public class LeaderboardGUI {
                 if (i == limit) break;
 
                 i++;
-                ItemStack itemStack = guiHandler.craftItemStack(manager, "playerTemplate", "Items", value.getUUID());
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(value.getUUID());
+                ItemStack itemStack = guiHandler.craftItemStack(manager, "playerTemplate", "Items", value.getUuid());
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(value.getUuid());
 
                 parseItemLore(itemStack, offlinePlayer, String.valueOf(value.getValue()), String.valueOf(i));
 

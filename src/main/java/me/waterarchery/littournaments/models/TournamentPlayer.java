@@ -1,11 +1,15 @@
 package me.waterarchery.littournaments.models;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.waterarchery.littournaments.LitTournaments;
 import me.waterarchery.littournaments.database.Database;
 
 import java.util.HashMap;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class TournamentPlayer {
 
     private final UUID uuid;
@@ -19,10 +23,6 @@ public class TournamentPlayer {
 
     public UUID getUUID() {
         return uuid;
-    }
-
-    public HashMap<Tournament, Long> getTournamentValueMap() {
-        return tournamentValueMap;
     }
 
     public boolean isRegistered(Tournament tournament) {
@@ -41,14 +41,6 @@ public class TournamentPlayer {
         database.deleteFromTournament(uuid, tournament);
 
         tournamentValueMap.remove(tournament);
-    }
-
-    public boolean isLoading() {
-        return isLoading;
-    }
-
-    public void setLoading(boolean loading) {
-        isLoading = loading;
     }
 
 }

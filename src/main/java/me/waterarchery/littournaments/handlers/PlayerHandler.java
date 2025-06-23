@@ -1,5 +1,6 @@
 package me.waterarchery.littournaments.handlers;
 
+import lombok.Getter;
 import me.waterarchery.litlibs.LitLibs;
 import me.waterarchery.littournaments.LitTournaments;
 import me.waterarchery.littournaments.database.Database;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+@Getter
 public class PlayerHandler {
 
     private static PlayerHandler instance;
@@ -26,14 +28,6 @@ public class PlayerHandler {
     }
 
     private PlayerHandler() { }
-
-    public void addPlayer(TournamentPlayer player) {
-        players.add(player);
-    }
-
-    public void removePlayer(TournamentPlayer player) {
-        players.remove(player);
-    }
 
     public TournamentPlayer getPlayer(UUID uuid) {
         for (TournamentPlayer tournamentPlayer : players) {
@@ -47,7 +41,7 @@ public class PlayerHandler {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getUniqueId().equals(uuid)) {
                 TournamentPlayer tournamentPlayer = new TournamentPlayer(uuid);
-                addPlayer(tournamentPlayer);
+                players.add(tournamentPlayer);
                 initializePlayer(tournamentPlayer, false);
                 return tournamentPlayer;
             }

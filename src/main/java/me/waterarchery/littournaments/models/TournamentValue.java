@@ -1,10 +1,12 @@
 package me.waterarchery.littournaments.models;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
+@Getter
 public class TournamentValue {
 
     private final UUID uuid;
@@ -18,14 +20,6 @@ public class TournamentValue {
     public String getName() {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
         return offlinePlayer.getName();
-    }
-
-    public UUID getUUID() {
-        return uuid;
-    }
-
-    public long getValue() {
-        return value;
     }
 
 }
