@@ -1,5 +1,6 @@
-# Bu workflow, Maven ile bir Java projesini derler ve oluşan JAR dosyasını bir GitHub Release olarak yayınlar.
-name: Build and Release JAR
+# Bu workflow, master branch'ine yapılan her push işleminde otomatik olarak
+# tarih ve build numarasına göre bir etiket oluşturur ve release yayınlar.
+name: Build and Release with Automatic Tag
 
 on:
   push:
@@ -8,6 +9,10 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    # Release oluşturma işlemi için yazma (write) izni gereklidir.
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,12 +27,17 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
+      # YENİ ADIM: Otomatik olarak etiket ismini oluşturur.
+      - name: Generate tag name
+        id: generate_tag
+        run: echo "tag_name=v$(date +'%Y.%m.%d')-${{ github.run_number }}" >> $GITHUB_OUTPUT
+
+      # GÜNCELLENMİŞ ADIM: Oluşturulan etiketi kullanarak release yayınlar.
       - name: Create Release and Upload JAR
         uses: softprops/action-gh-release@v2
         with:
-          # Bu kısım, 'target' klasöründeki tüm .jar dosyalarını release'e ekler.
-          # pom.xml dosyanızda tek bir JAR üretildiğinden emin olun.
+          # Önceki adımda oluşturduğumuz etiketi burada kullanıyoruz.
+          tag_name: ${{ steps.generate_tag.outputs.tag_name }}
           files: target/*.jar
         env:
-          # Bu token, release oluşturmak için gereklidir ve GitHub tarafından otomatik olarak sağlanır.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
