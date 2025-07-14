@@ -1,4 +1,4 @@
-# LitTournaments
+# LitTournaments 
 
 LitTournaments is a Minecraft plugin designed to manage and run tournaments on your server. It leverages the Spigot API and integrates with various libraries and databases to provide a seamless experience.
 
